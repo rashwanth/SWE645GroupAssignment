@@ -34,8 +34,10 @@ pipeline {
                     }
 
 
-                    // Build the Docker image
-                    def customImage = docker.build("suplami/studentsurvey645:${BUILD_TIMESTAMP}")
+                    // Build the Docker image using shell command
+                    sh """
+                        docker build -t supalami/studentsurvey645:${BUILD_TIMESTAMP} .
+                    """
                 }
             }
         }
