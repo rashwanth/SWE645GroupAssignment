@@ -35,9 +35,8 @@ pipeline {
 
 
                     // Build the Docker image using shell command
-                    sh """
-                        docker build -t supalami/studentsurvey645:${BUILD_TIMESTAMP} .
-                    """
+                    sh "pwd"
+                    sh "docker build -t supalami/studentsurvey645:${cleanBuildTimestamp} ."
                 }
             }
         }
