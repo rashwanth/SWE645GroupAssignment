@@ -37,6 +37,10 @@ pipeline {
 
                     // Build the Docker image using shell command
                     sh "pwd"
+                    // Replace spaces with underscores in the timestamp for the Docker tag
+                    def cleanBuildTimestamp = "${BUILD_TIMESTAMP}".replace(' ', '_').replace(':', '-')
+                    
+                    // Build the Docker image
                     sh "docker build -t supalami/studentsurvey645:${cleanBuildTimestamp} ."
                 }
             }
