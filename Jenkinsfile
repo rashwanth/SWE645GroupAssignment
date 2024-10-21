@@ -24,14 +24,14 @@ pipeline {
                     // Print the timestamp for debugging
                     sh 'echo ${BUILD_TIMESTAMP}'
 
-                    // Use --password-stdin for secure Docker login
-                    //sh """
-                    //   echo ${dockerHubPassword} | docker login -u ${dockerHubUsername} --password-stdin
-                    //"""
-                    // sh "docker login -u sairaswanthp@gmail.com -p \"${DOCKERHUB_CREDENTIALS}\""
-                    sh """
-                        echo "${DOCKERHUB_CREDENTIALS}" | docker login -u sairaswanthp@gmail.com --password-stdin
-                    """
+                    // Securely handle Docker login
+                    withCredentials([usernamePassword(credentialsId: 'docker-pass', 
+                                                      usernameVariable: 'DOCKER_USER', 
+                                                      passwordVariable: 'DOCKER_PASS')]) {
+                        sh """
+                            echo "\$DOCKER_PASS" | docker login -u "\$DOCKER_USER" --password-stdin
+                        """
+                    }
 
 
                     // Build the Docker image
