@@ -36,6 +36,7 @@ pipeline {
                 sh 'echo Completed 2'
             }
         }
+        
         stage("Deploying to Rancher with load balancer") {
             steps {
                 // sh 'kubectl set image deployment/studentsurvey645-lb studentsurvey645-lb=hekme5/studentsurvey645:${BUILD_TIMESTAMP} -n jenkins-pipeline'
