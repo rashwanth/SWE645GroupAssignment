@@ -12,8 +12,10 @@ pipeline {
                 script {
                     checkout scm
 
-                    // Build using Maven
-                    sh 'mvn clean package'
+                    dir('myproject') { 
+                        // Build using Maven
+                        sh 'mvn clean package'
+                    }
 
                     // Extract username and password from credentials
                     def dockerHubUsername = "${DOCKERHUB_CREDENTIALS_USR}"
