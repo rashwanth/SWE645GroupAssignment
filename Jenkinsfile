@@ -12,10 +12,12 @@ pipeline {
                 script {
                     checkout scm
 
+                    // Change directory to 'myproject' before running Maven
                     dir('myproject') { 
                         // Build using Maven
                         sh 'mvn clean package'
                     }
+
                     // Extract username and password from credentials
                     def dockerHubUsername = "${DOCKERHUB_CREDENTIALS_USR}"
                     def dockerHubPassword = "${DOCKERHUB_CREDENTIALS_PSW}"
@@ -23,8 +25,10 @@ pipeline {
                     // Print the timestamp for debugging
                     sh 'echo ${BUILD_TIMESTAMP}'
 
-                    // Login to DockerHub using credentials
-                    sh "docker login -u ${dockerHubUsername} -p ${dockerHubPassword}"
+                    // Use --password-stdin for secure Docker login
+                    sh """
+                        echo ${dockerHubPassword} | docker login -u ${dockerHubUsername} --password-stdin
+                    """
 
                     // Build the Docker image
                     def customImage = docker.build("${dockerHubUsername}/studentsurvey645:${BUILD_TIMESTAMP}")
