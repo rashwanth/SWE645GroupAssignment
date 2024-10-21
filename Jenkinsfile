@@ -16,6 +16,7 @@ pipeline {
                 }
             }
         }
+        
         stage("Pushing Image to DockerHub") {
             steps {
                 script {
