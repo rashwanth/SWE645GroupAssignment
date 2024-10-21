@@ -22,22 +22,22 @@ pipeline {
                 }
             }
         }
-
         stage("Pushing Image to DockerHub") {
             steps {
                 script {
-                    sh 'docker push hekme5/studentsurvey645:${BUILD_TIMESTAMP}'
+                    // sh 'docker push hekme5/studentsurvey645:${BUILD_TIMESTAMP}'
                 }
             }
         }
         stage("Deploying to Rancher as single pod") {
             steps {
-                sh 'kubectl set image deployment/stusurvey-pipeline stusurvey-pipeline=hekme5/studentsurvey645:${BUILD_TIMESTAMP} -n jenkins-pipeline'
+                // sh 'kubectl set image deployment/stusurvey-pipeline stusurvey-pipeline=hekme5/studentsurvey645:${BUILD_TIMESTAMP} -n jenkins-pipeline'
             }
         }
         stage("Deploying to Rancher with load balancer") {
             steps {
-                sh 'kubectl set image deployment/studentsurvey645-lb studentsurvey645-lb=hekme5/studentsurvey645:${BUILD_TIMESTAMP} -n jenkins-pipeline'
+                // sh 'kubectl set image deployment/studentsurvey645-lb studentsurvey645-lb=hekme5/studentsurvey645:${BUILD_TIMESTAMP} -n jenkins-pipeline'
+                sh 'echo Completed'
             }
         }
     }
