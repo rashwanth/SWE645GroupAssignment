@@ -8,15 +8,21 @@ pipeline {
             steps {
                 script {
                     checkout scm
-                    sh 'rm -rf *.war'
-                    sh 'jar -cvf StudentSurvey.war -C WebContent/ .'
+                    sh 'mvn clean package'
                     sh 'echo ${BUILD_TIMESTAMP}'
-                    sh "docker login -u hekme5 -p ${DOCKERHUB_PASS}"
+                    // Extract username and password from credentials
+                    def dockerHubUsername = "${DOCKERHUB_CREDENTIALS_USR}"
+                    def dockerHubPassword = "${DOCKERHUB_CREDENTIALS_PSW}"
+
+                    // Login to DockerHub using credentials
+                    sh "docker login -u ${dockerHubUsername} -p ${dockerHubPassword}"
+
+                    // Build the Docker image
                     def customImage = docker.build("hekme5/studentsurvey645:${BUILD_TIMESTAMP}")
                 }
             }
         }
-        
+
         stage("Pushing Image to DockerHub") {
             steps {
                 script {
