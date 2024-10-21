@@ -31,7 +31,7 @@ pipeline {
                                                       usernameVariable: 'DOCKER_USER', 
                                                       passwordVariable: 'DOCKER_PASS')]) {
                         sh """
-                            echo "\$DOCKER_PASS" | docker login -u "\$DOCKER_USER" --password-stdin
+                            echo ""\$DOCKER_PASS" | docker login -u "\$DOCKER_USER" --password-stdin"
                         """
                     }
 
@@ -62,17 +62,7 @@ pipeline {
                 script {
                     // Deploy to Rancher as a single pod
                     sh "kubectl -n dev set image deployment/development container-0=supalami/studentsurvey645:${BUILD_TAG}"
-                    sh 'echo Completed 2'
-                }
-            }
-        }
-        
-        stage("Deploying to Rancher with load balancer") {
-            steps {
-                script {
-                    // Deploy to Rancher with load balancer
-                    // sh "kubectl set image deployment/studentsurvey645-lb studentsurvey645-lb=hekme5/studentsurvey645:${BUILD_TIMESTAMP} -n jenkins-pipeline"
-                    sh 'echo Completed 3'
+                    sh 'echo "Deploying to rancher"'
                 }
             }
         }
