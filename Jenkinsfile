@@ -3,7 +3,6 @@ pipeline {
     environment {
         DOCKERHUB_PASS = credentials('docker-pass')
     }
-    
     stages {
         stage("Building the Student Survey Image") {
             steps {
