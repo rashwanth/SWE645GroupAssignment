@@ -16,7 +16,6 @@ pipeline {
                         // Build using Maven
                         sh 'mvn clean package'
                     }
-
                     // Extract username and password from credentials
                     def dockerHubUsername = "${DOCKERHUB_CREDENTIALS_USR}"
                     def dockerHubPassword = "${DOCKERHUB_CREDENTIALS_PSW}"
