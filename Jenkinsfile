@@ -27,7 +27,7 @@ pipeline {
 
                     // Use --password-stdin for secure Docker login
                     sh """
-                        echo ${dockerHubPassword} | docker login -u ${dockerHubUsername}
+                        echo ${dockerHubPassword} | docker login -u ${dockerHubUsername} --password-stdin
                     """
 
                     // Build the Docker image
