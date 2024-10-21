@@ -28,7 +28,7 @@ pipeline {
                     sh "docker login -u ${dockerHubUsername} -p ${dockerHubPassword}"
 
                     // Build the Docker image
-                    def customImage = docker.build("hekme5/studentsurvey645:${BUILD_TIMESTAMP}")
+                    def customImage = docker.build("${dockerHubUsername}/studentsurvey645:${BUILD_TIMESTAMP}")
                 }
             }
         }
