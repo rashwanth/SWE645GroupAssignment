@@ -19,19 +19,19 @@ pipeline {
                     }
 
                     // Extract username and password from credentials
-                    def dockerHubUsername = "${DOCKERHUB_CREDENTIALS_USR}"
-                    def dockerHubPassword = "${DOCKERHUB_CREDENTIALS_PSW}"
+
 
                     // Print the timestamp for debugging
                     sh 'echo ${BUILD_TIMESTAMP}'
 
                     // Use --password-stdin for secure Docker login
-                    sh """
-                        echo ${dockerHubPassword} | docker login -u ${dockerHubUsername} --password-stdin
-                    """
+                    //sh """
+                    //   echo ${dockerHubPassword} | docker login -u ${dockerHubUsername} --password-stdin
+                    //"""
+                    sh "dockerlogin -u suplami -p ${DOCKERHUB_CREDENTIALS}"
 
                     // Build the Docker image
-                    def customImage = docker.build("${dockerHubUsername}/studentsurvey645:${BUILD_TIMESTAMP}")
+                    def customImage = docker.build("suplami/studentsurvey645:${BUILD_TIMESTAMP}")
                 }
             }
         }
