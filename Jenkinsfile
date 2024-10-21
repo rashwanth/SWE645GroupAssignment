@@ -52,16 +52,16 @@ pipeline {
                 script {
                     // Push the Docker image to DockerHub
                     sh "docker push supalami/studentsurvey645:${BUILD_TAG}"
-                    sh 'echo Completed pushing the image'
+                    sh 'echo "Completed pushing the image"'
                 }
             }
         }
 
-        stage("Deploying to Rancher as single pod") {
+        stage("Deploying to Rancher") {
             steps {
                 script {
                     // Deploy to Rancher as a single pod
-                    // sh "kubectl set image deployment/stusurvey-pipeline stusurvey-pipeline=hekme5/studentsurvey645:${BUILD_TIMESTAMP} -n jenkins-pipeline"
+                    sh "kubectl -n dev set image deployment/development container-0=supalami/studentsurvey645:${BUILD_TAG}"
                     sh 'echo Completed 2'
                 }
             }
