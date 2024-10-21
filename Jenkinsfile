@@ -15,6 +15,7 @@ pipeline {
                     // Change directory to 'myproject' before running Maven
                     dir('myproject') { 
                         // Build using Maven
+                        sh "pwd"
                         sh 'mvn clean package'
                     }
 
