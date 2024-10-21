@@ -5,6 +5,7 @@ pipeline {
     }
     environment {
         DOCKERHUB_CREDENTIALS = credentials('docker-pass') // Single credential for username and password
+        BUILD_TAG = ''
     }
     stages {
         stage("Building the Student Survey Image") {
@@ -38,10 +39,10 @@ pipeline {
                     // Build the Docker image using shell command
                     sh "pwd"
                     // Replace spaces with underscores in the timestamp for the Docker tag
-                    def cleanBuildTimestamp = "${BUILD_TIMESTAMP}".replace(' ', '_').replace(':', '-')
+                    BUILD_TAG = "${BUILD_TIMESTAMP}".replace(' ', '_').replace(':', '-')
                     
                     // Build the Docker image
-                    sh "docker build -t supalami/studentsurvey645:${cleanBuildTimestamp} ."
+                    sh "docker build -t supalami/studentsurvey645:${BUILD_TAG} ."
                 }
             }
         }
@@ -50,8 +51,8 @@ pipeline {
             steps {
                 script {
                     // Push the Docker image to DockerHub
-                    // sh "docker push hekme5/studentsurvey645:${BUILD_TIMESTAMP}"
-                    sh 'echo Completed 1'
+                    sh "docker push supalami/studentsurvey645:${BUILD_TAG}"
+                    sh 'echo Completed pushing the image'
                 }
             }
         }
