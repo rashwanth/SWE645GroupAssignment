@@ -7,6 +7,7 @@ pipeline {
         DOCKERHUB_CREDENTIALS = credentials('docker-pass') // Single credential for username and password
         BUILD_TAG = ''
     }
+    
     stages {
         stage("Building the Student Survey Image") {
             steps {
